@@ -15,7 +15,7 @@ const boomError = (err, req, res, next) => {
         const { output } = err;
         res.status(output.statusCode).json(output.payload);
     }
-    next(err);
+    next(err); 
 }
 
 module.exports = { logError, errorHandler, boomError }
