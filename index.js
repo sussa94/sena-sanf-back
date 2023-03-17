@@ -23,16 +23,10 @@ mongoose.connect(dbConfig.dataBase, {
 .then(() => console.log('Data Base Connected'))
 .catch(err => console.log('Connect Error ', err));
 
-// const start = async () => {
-//   await server.start();
-//   app.use('/', expressMiddleware(server));
-//   await new Promise (resolve => httpServer.listen(dbConfig.port, resolve));
-//   console.log(`🚀 Server ready at http://localhost:${dbConfig.port}`);
-// }
-// start();
-
-app.listen(dbConfig.port, async () => {
+const start = async () => {
   await server.start();
   app.use('/', expressMiddleware(server));
+  await new Promise (resolve => httpServer.listen(dbConfig.port, resolve));
   console.log(`🚀 Server ready at http://localhost:${dbConfig.port}`);
-});
+}
+start();
