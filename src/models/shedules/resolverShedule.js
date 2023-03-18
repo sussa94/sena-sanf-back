@@ -4,13 +4,13 @@ const boom = require("@hapi/boom");
 const resolverShedule = {
   Query: {
     allShedules: async () => {
-      const shedules = await SheduleModel.find().populate('Instructor');
+      const shedules = await SheduleModel.find();
       if (shedules.length) return shedules;
       throw boom.notFound('Shedules Not Found in DB');
     },
     getOneShedule: async (parent, args) => {
       const query = { Instructor: args.Instructor };
-      const shedule = await SheduleModel.findOne(query);
+      const shedule = await SheduleModel.findOne(query).populate('Instructor');
       if (shedule) return shedule;
       throw boom.notFound(`El ID ${args.Instructor} No Existe`);
     }
