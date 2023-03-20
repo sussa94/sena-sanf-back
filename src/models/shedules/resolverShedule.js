@@ -12,7 +12,7 @@ const resolverShedule = {
       const query = { Instructor: args.Instructor };
       const shedule = await SheduleModel.findOne(query).populate('Instructor');
       if (shedule) return shedule;
-      throw boom.notFound(`El ID ${args.Instructor} No Existe`);
+      throw boom.notFound(`El Instructor ${args.Instructor} No Tiene horarios Asignados`);
     }
   },
   Mutation : {
@@ -27,7 +27,7 @@ const resolverShedule = {
     updateShedule: async (parent, args) => {
       const query = { _id: args._id };
       const sheduleUp = await SheduleModel.findByIdAndUpdate(query, args);
-      if (sheduleUp) return `El Horario ${args._id} Ha sido Actualizado`;
+      if (sheduleUp) return sheduleUp;
       throw boom.notFound(`El ID ${args._id} No Existe`);
     }
   }
