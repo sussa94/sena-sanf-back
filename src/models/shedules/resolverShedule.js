@@ -26,7 +26,7 @@ const resolverShedule = {
     },
     updateShedule: async (parent, args) => {
       const query = { _id: args._id };
-      const sheduleUp = await SheduleModel.findByIdAndUpdate(query, args);
+      const sheduleUp = await SheduleModel.findByIdAndUpdate(query, args, { new: true });
       if (sheduleUp) return sheduleUp;
       throw boom.notFound(`El ID ${args._id} No Existe`);
     }
