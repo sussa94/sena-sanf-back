@@ -8,7 +8,7 @@ const typeDefsPrograms = `#graphql
     }
     type Query {
       allPrograms: [Program]
-      getOneProgram( _id: ID! ) : Program
+      getOneProgram( Nombre: String! ) : Program
     }
     type Mutation {
         addProgram(

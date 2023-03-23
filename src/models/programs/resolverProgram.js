@@ -9,10 +9,11 @@ const resolverProgram = {
             throw boom.notFound('Programs Not Found in DB');
         },
         getOneProgram : async (parent, args) => {
-          const program = await ProgramModel.findById(args._id)
+          const query = { Nombre: args.Nombre } 
+          const program = await ProgramModel.findOne(query)
             .populate('Competencias').populate('Resultados');
           if (program) return program;
-          throw boom.notFound(`El ID ${args._id} No Existe`);
+          throw boom.notFound(`El Programa ${args.Nombre} No Existe`);
         }
     },
     Mutation : {
@@ -27,4 +28,4 @@ const resolverProgram = {
     }
 }
 
-module.exports = resolverProgram;
+module.exports = resolverProgram; 
