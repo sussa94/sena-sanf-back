@@ -64,14 +64,14 @@ const typeDefsShedule = `#graphql
   }
   type Mutation {
     addShedule(
-      Instructor: String!,
+      Instructor: ID!,
       Horario: [SheduleInput]
     ) : Shedule
 
     updateShedule(
       _id: ID!
       Horario: [SheduleInput]
-    ) : String
+    ) : Shedule
   }
 `;
 
