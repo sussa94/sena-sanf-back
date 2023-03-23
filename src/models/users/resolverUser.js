@@ -7,7 +7,7 @@ const resolverUser = {
     Query: {
         allUsers: async (parent, args) => {
             let users;
-            if (args.Active) users = await UserModel.find({ Active: true });
+            if (args.Rol) users = await UserModel.find({ Rol: args.Rol });
             else users = await UserModel.find();
             if (users.length) return users;
             throw boom.notFound('Users Not Found in DB');

@@ -16,7 +16,7 @@ const typeDefsUser = `#graphql
     }
 
     type Query {
-        allUsers( Active: Boolean ) : [User]
+        allUsers( Rol: Enum_Rol ) : [User]
         getOneUser( Num_Documento: String! ) : User
     }
     type Mutation {
