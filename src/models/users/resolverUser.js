@@ -32,9 +32,7 @@ const resolverUser = {
         args.Password = hashedPassword;
         const userCreated = await UserModel.create(args);
         return userCreated;
-      } catch (error) {
-        throw boom.conflict(`No se pudo crear el usuario, Error: ${error}`);
-      }
+      } catch (error) { throw boom.conflict(`No se pudo crear el usuario, Error: ${error}`); }
     },
     updateUser: async (root, args, context) => {
       const { currentUser } = context;
@@ -48,18 +46,17 @@ const resolverUser = {
         }
         await UserModel.findByIdAndUpdate(query, args);
         return `User ${args._id} Update OK`;
-      } catch (error) {
-        throw boom.notFound(error + ' Id No Existe');
-      }
+      } catch (error) { throw boom.notFound(error + ' Id No Existe'); }
     },
     loginUser: async (root, args) => {
       const user = await UserModel.findOne({ Num_Documento: args.Num_Documento });
       if (user) {
-        if (!user.Active) throw boom.conflict('User Is Not Active');
+        if (!user.Active)
+          throw boom.conflict('Lo sentimos, su Usuario se encuentra Inactivo, por favor comuniquese con el Administrador');
         const { Num_Documento, Tipo_Documento, Password } = user;
         if (Tipo_Documento === args.Tipo_Documento && Num_Documento === args.Num_Documento) {
           const valid = await bcrypt.compare(args.Password, Password);
-          if (!valid) throw boom.notFound('Wrong Credencials');
+          if (!valid) throw boom.notFound('Lo sentimos, los Datos ingresados No son validos, Verifiquelos');
           const userForToken = {
             id: user._id,
             Num_Documento,
@@ -68,7 +65,7 @@ const resolverUser = {
           return { value: jwt.sign(userForToken, process.env.JWT_SECRET) }
         }
       } else {
-        throw boom.conflict(`Datos Ingresados No Validos`);
+        throw boom.conflict(`Lo sentimos, los Datos ingresados No son validos, Verifiquelos, o Registrese`);
       }
     }
   }
