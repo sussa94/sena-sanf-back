@@ -14,10 +14,14 @@ const typeDefsUser = `#graphql
         Rol: Enum_Rol!,
         Active: Boolean!
     }
+    type Token {
+      value: String!
+    }
 
     type Query {
         allUsers( Rol: Enum_Rol ) : [User]
         getOneUser( Num_Documento: String! ) : User
+        me: User
     }
     type Mutation {
         createUser(
@@ -39,6 +43,12 @@ const typeDefsUser = `#graphql
             Rol: Enum_Rol,
             Active: Boolean
         ) : String
+
+        loginUser(
+          Tipo_Documento: Enum_Type_Doc!,
+          Num_Documento: String!,
+          Password: String!
+        ) : Token
     }
 `;
 
