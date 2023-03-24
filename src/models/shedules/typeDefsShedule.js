@@ -57,9 +57,10 @@ const typeDefsShedule = `#graphql
     color: String!,
     Ambiente: String
   }
-  
+
   type Query {
     allShedules: [Shedule]
+    getSheduleClassRoom( FechaInicio: String!, Ambiente: String! ) : [Int]
     getOneShedule( Instructor: ID! ) : Shedule
   }
   type Mutation {

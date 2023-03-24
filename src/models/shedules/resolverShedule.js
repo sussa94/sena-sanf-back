@@ -8,6 +8,20 @@ const resolverShedule = {
       if (shedules.length) return shedules;
       throw boom.notFound('Shedules Not Found in DB');
     },
+    getSheduleClassRoom: async (parent, args) => {
+      const shedules = await SheduleModel.find();
+      const sheduleClass = [];
+      shedules.forEach(e => {
+        e.Horario.forEach(elm => {
+          if (elm.FechaInicio === args.FechaInicio) {
+            elm.Horas.forEach(({ Ambiente, pos }) => {
+              if (Ambiente === args.Ambiente) sheduleClass.push(pos);
+            });
+          }
+        });
+      });
+      return sheduleClass;
+    },
     getOneShedule: async (parent, args) => {
       const query = { Instructor: args.Instructor };
       const shedule = await SheduleModel.findOne(query).populate('Instructor');
