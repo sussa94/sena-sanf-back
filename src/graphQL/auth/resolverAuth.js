@@ -1,6 +1,7 @@
 const UserModel = require('../../models/users/modelUser');
 const boom = require('@hapi/boom');
 const generateToken = require('../../utils/tokenUtils');
+const bcrypt = require('bcryptjs');
 
 const resolverAuth = {
   Mutation: {
