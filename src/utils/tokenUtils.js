@@ -5,5 +5,14 @@ const generateToken = payload => {
         expiresIn: '12h'
     });
 }
+const validateToken = token => {
+    if (token) {
+        const verifyToken = jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
+            if (data) return { data };
+            if (err) return { error: err };
+        });
+        return verifyToken;
+    }
+}
 
-module.exports = generateToken;
+module.exports = { generateToken, validateToken }

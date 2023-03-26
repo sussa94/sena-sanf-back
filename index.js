@@ -1,14 +1,13 @@
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer');
-const UserModel = require('./src/models/users/modelUser');
 const resolvers = require('./src/graphQL/resolvers');
 const dbConfig = require('./src/dbConfig/dbConfig');
 const typeDefs = require('./src/graphQL/typeDefs');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const app = require('./app.js');
 const http = require('http');
+const { validateToken } = require('./src/utils/tokenUtils');
 
 const httpServer = http.createServer(app);
 const server = new ApolloServer({
@@ -24,15 +23,20 @@ mongoose.connect(dbConfig.dataBase, {
 .then(() => console.log('Data Base Connected'))
 .catch(err => console.log('Connect Error ', err));
 
+const getUserData = token => {
+  const verifyToken = validateToken(token);
+  if (verifyToken.data) return verifyToken.data;
+  return verifyToken.data
+}
+
 const start = async () => {
   await server.start();
   app.use('/', expressMiddleware(server, {
-    context: async ({ req }) => {     // Cada peticion de GraphQL pasa por aqui
+    context: ({ req }) => {     // Cada peticion de GraphQL pasa por aqui
       const auth = req ? req.headers.authorization : null;    // headers con validacion
       if (auth && auth.toLowerCase().startsWith('bearer ')) {    // formato del token
         const token = auth.substring(7);
-        const decodeToken = jwt.verify(token, process.env.JWT_SECRET);
-        const currentUser = await UserModel.findById(decodeToken.id);
+        const currentUser = getUserData(token);
         return { currentUser };
       }
     },

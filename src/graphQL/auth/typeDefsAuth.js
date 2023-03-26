@@ -15,6 +15,14 @@ const typeDefsAuth = `#graphql
       Password: String!,
       Rol: Enum_Rol!,
     ) : Token!
+
+    loginUser(
+      Tipo_Documento: Enum_Type_Doc!,
+      Num_Documento: String!,
+      Password: String!
+    ) : Token!
+
+    validateToken: Token!
   } 
 `;
 
