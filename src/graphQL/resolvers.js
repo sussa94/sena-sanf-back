@@ -4,6 +4,7 @@ const resolverProgram = require('../models/programs/resolverProgram');
 const resolverCompetences = require('../models/competences/resolverCompetences');
 const resolverResult = require('../models/results/resolverResult');
 const resolverShedule = require('../models/shedules/resolverShedule');
+const resolverAuth = require('./auth/resolverAuth');
 
 module.exports = [
     resolverUser,
@@ -11,5 +12,6 @@ module.exports = [
     resolverProgram,
     resolverCompetences,
     resolverResult,
-    resolverShedule
+    resolverShedule,
+    resolverAuth
 ];

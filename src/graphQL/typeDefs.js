@@ -4,6 +4,7 @@ const typeDefsPrograms = require('../models/programs/typeDefsPrograms');
 const typeDefsCompetences = require('../models/competences/typeDefsCompetences');
 const typeDefsResult = require('../models/results/typeDefsResult');
 const typeDefsShedule = require('../models/shedules/typeDefsShedule');
+const typeDefsAuth = require('./auth/typeDefsAuth');
 
 module.exports = [
     typeDefsUser,
@@ -11,5 +12,6 @@ module.exports = [
     typeDefsPrograms,
     typeDefsCompetences,
     typeDefsResult,
-    typeDefsShedule
+    typeDefsShedule,
+    typeDefsAuth
 ];
