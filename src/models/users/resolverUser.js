@@ -31,9 +31,8 @@ const resolverUser = {
         return userCreated;
       } catch (error) { throw boom.conflict(`No se pudo crear el usuario, Error: ${error}`); }
     },
-    updateUser: async (root, args, context) => {
-      const { currentUser } = context;
-      if (!currentUser) throw boom.unauthorized('User Not Autorized');
+    updateUser: async (root, args, { currentUser }) => {
+      if (!currentUser) throw boom.unauthorized('User Not Authenticated');
       try {
         const query = { _id: args._id };
         if (args.Password) {
