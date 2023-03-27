@@ -22,7 +22,7 @@ const typeDefsAuth = `#graphql
       Password: String!
     ) : Token!
 
-    validateToken: Token!
+    refreshToken: Token!
   } 
 `;
 

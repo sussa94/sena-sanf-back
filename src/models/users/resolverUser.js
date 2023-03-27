@@ -7,7 +7,7 @@ const resolverUser = {
     allUsers: async (root, args, context) => {
       const { currentUser } = context;
       if (currentUser) {
-        if (currentUser.Rol !== 'ADMINISTRADOR') throw boom.unauthorized('User Not Autorized');
+        if (currentUser.Rol === 'INSTRUCTOR') throw boom.unauthorized('User Not Autorized');
         let users;
         if (args.Rol) users = await UserModel.find({ Rol: args.Rol });
         else users = await UserModel.find();

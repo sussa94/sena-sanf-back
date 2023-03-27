@@ -49,8 +49,19 @@ const resolverAuth = {
         throw boom.conflict(`Lo sentimos, los Datos ingresados No son validos, Verifiquelos, o Registrese`);
       }
     },
-    validateToken: async (root, args, context) => {
-      console.log(context);
+    refreshToken: async (root, args, context) => {
+      if (!context.currentUser) return { error: 'Token No Valido'};
+      return { 
+        token: generateToken({
+          _id: context.currentUser._id,
+          Nombre: context.currentUser.Nombre,
+          Apellido: context.currentUser.Apellido,
+          Num_Documento: context.currentUser.Num_Documento,
+          Email: context.currentUser.Email,
+          Rol: context.currentUser.Rol,
+          Active: context.currentUser.Active
+        })
+      };
     }
   }
 }
