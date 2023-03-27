@@ -26,7 +26,7 @@ mongoose.connect(dbConfig.dataBase, {
 const getUserData = token => {
   const verifyToken = validateToken(token);
   if (verifyToken.data) return verifyToken.data;
-  return verifyToken.data
+  return null;
 }
 
 const start = async () => {

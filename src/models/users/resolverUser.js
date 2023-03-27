@@ -4,8 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const resolverUser = {
   Query: {
-    allUsers: async (root, args, context) => {
-      const { currentUser } = context;
+    allUsers: async (root, args, { currentUser }) => {
       if (currentUser) {
         if (currentUser.Rol === 'INSTRUCTOR') throw boom.unauthorized('User Not Autorized');
         let users;
