@@ -40,7 +40,7 @@ const resolverUser = {
           const hashedPassword = await bcrypt.hash(args.Password, salt);
           args.Password = hashedPassword;
         }
-        await UserModel.findByIdAndUpdate(query, args);
+        await UserModel.findByIdAndUpdate(query, args, { new: true });
         return `User ${args._id} Update OK`;
       } catch (error) { throw boom.notFound(error + ' Id No Existe'); }
     }

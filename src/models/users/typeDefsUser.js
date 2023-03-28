@@ -38,7 +38,7 @@ const typeDefsUser = `#graphql
             Password: String,
             Rol: Enum_Rol,
             Active: Boolean
-        ) : String
+        ) : User
     }
 `;
 
