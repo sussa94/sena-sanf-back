@@ -7,6 +7,11 @@ const resolverAuth = {
   Mutation: {
     registerUser: async (root, args) => {
       try {
+        const findUser = await UserModel.findOne({ Num_Documento: args.Num_Documento });
+        const findEmail = await UserModel.findOne({ Email: args.Email });
+        if (findUser) throw boom.conflict(`El Usuario con Cedula ${args.Num_Documento}, Ya se encuentra registrado`);
+        if (findEmail) throw boom.conflict(`El Usuario con el Email ${args.Email}, Ya se encuentra registrado`);
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(args.Password, salt);
         args.Password = hashedPassword;
@@ -14,15 +19,10 @@ const resolverAuth = {
         return {
           token: generateToken({
             _id: userRegister._id,
-            Nombre: userRegister.Nombre,
-            Apellido: userRegister.Apellido,
-            Num_Documento: userRegister.Num_Documento,
-            Email: userRegister.Email,
-            Rol: userRegister.Rol,
             Active: userRegister.Active
           })
         };
-      } catch (error) { throw boom.conflict(`No se pudo crear el usuario, Error: ${error}`); }
+      } catch (error) { throw boom.conflict(`No se pudo crear el usuario, ${error}`); }
     },
     loginUser: async (root, args) => {
       const findUser = await UserModel.findOne({ Num_Documento: args.Num_Documento });
@@ -51,6 +51,7 @@ const resolverAuth = {
     },
     refreshToken: async (root, args, context) => {
       if (!context.currentUser) return { error: 'Token No Valido'};
+      if (!context.currentUser.Active) return { error: 'Usuario no Activo'};
       return { 
         token: generateToken({
           _id: context.currentUser._id,
