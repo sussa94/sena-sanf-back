@@ -2,12 +2,12 @@
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const { ApolloServerPluginDrainHttpServer } = require('@apollo/server/plugin/drainHttpServer');
-const { validateToken } = require('./src/utils/tokenUtils');
-const resolvers = require('./src/graphQL/resolvers');
-const dbConfig = require('./src/dbConfig/dbConfig');
-const typeDefs = require('./src/graphQL/typeDefs');
+const { validateToken } = require('./utils/tokenUtils');
+const resolvers = require('./graphQL/resolvers');
+const dbConfig = require('./dbConfig/dbConfig');
+const typeDefs = require('./graphQL/typeDefs');
 const mongoose = require('mongoose');
-const app = require('./app.js');
+const app = require('../app.js');
 const http = require('http');
 
 const httpServer = http.createServer(app);
