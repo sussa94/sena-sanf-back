@@ -6,7 +6,7 @@ const userShema = new Schema({
     Apellido: { type: String, required: true },
     Tipo_Documento: {
         type: String, required: true, default: 'CEDULA_DE_CIUDADANIA', enum: ['CEDULA_DE_CIUDADANIA',
-            'TARJETA_DE_IDENTIDAD', 'CEDULA_DE_EXTRANJERIA', 'PEP', 'PERMISO_DE_PROTECCION_TEMPORAL']
+            'TARJETA_DE_IDENTIDAD', 'CEDULA_DE_EXTRANJERIA', 'NUIP', 'PEP', 'PERMISO_DE_PROTECCION_TEMPORAL']
     },
     Num_Documento: { type: String, required: true, unique: true },
     Email: {
